@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:orientation="horizontal">
+
+        <com.example.vladimir.seabattle.logic.views.UserDrawView
+            app:userVisible="true"
+            android:id="@+id/drawUserView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/default_padding" />
+
+        <com.example.vladimir.seabattle.logic.views.ComputerDrawView
+            app:userVisible="false"
+            android:id="@+id/drawComputerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/default_padding" />
+    </LinearLayout>
+
+</LinearLayout>

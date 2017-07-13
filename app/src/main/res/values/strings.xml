@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">SeaBattle</string>
+    <string name="message_text">Winn!!</string>
+    <string name="maybe">maybe</string>
+    <string name="no">no</string>
+    <string name="yes">yes</string>
+    <string name="user">Human</string>
+    <string name="android">Android</string>
+    <string name="template_winner">Win %s player</string>
+    <string name="question">Start new game?</string>
+    <string name="positive_button">OK</string>
+    <string name="negative_button">NO</string>
+    <string name="title_activity_result">ResultActivity</string>
+    <string name="action_settings">Settings</string>
+</resources>
