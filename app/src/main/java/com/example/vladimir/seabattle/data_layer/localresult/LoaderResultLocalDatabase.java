@@ -78,7 +78,9 @@ public class LoaderResultLocalDatabase implements ILoadResult,
                 cursor.close();
             }
         }
-        onLoadResultFinished.onLoadResultSuccess(mergeResult(computerData, userData));
+        if (onLoadResultFinished != null) {
+            onLoadResultFinished.onLoadResultSuccess(mergeResult(computerData, userData));
+        }
     }
 
     @Override

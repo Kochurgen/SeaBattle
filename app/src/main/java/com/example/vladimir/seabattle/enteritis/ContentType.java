@@ -3,7 +3,7 @@ package com.example.vladimir.seabattle.enteritis;
 public enum ContentType {
     COMPUTER("COMPUTER"), HUMAN("HUMAN");
 
-    private String name;
+    private final String name;
 
     ContentType(String name) {
         this.name = name;

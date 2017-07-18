@@ -10,7 +10,7 @@ import android.view.MotionEvent;
 import com.example.vladimir.seabattle.enteritis.BoardLegend;
 
 import static com.example.vladimir.seabattle.logic.models.Board.BOARD_SIZE;
-import static com.example.vladimir.seabattle.logic.models.Board.minXY;
+import static com.example.vladimir.seabattle.logic.models.Board.MIN_XY;
 
 
 public class ComputerDrawView extends DrawView {
@@ -45,8 +45,8 @@ public class ComputerDrawView extends DrawView {
         detector.onTouchEvent(event);
         int X = (int) event.getX() - START_POSITION;
         int Y = (int) event.getY() - START_POSITION;
-        if ((X < 0) || (X > CELL_STEP * BoardLegend.values().length) ||
-                (Y < 0) || (Y > CELL_STEP * BoardLegend.values().length)) {
+        if ((X < MIN_XY) || (X > CELL_STEP * BoardLegend.values().length) ||
+                (Y < MIN_XY) || (Y > CELL_STEP * BoardLegend.values().length)) {
             return false;
         } else {
             int cellX = (int) Math.floor(X / CELL_STEP);
@@ -63,7 +63,7 @@ public class ComputerDrawView extends DrawView {
     }
 
     private boolean isRange(int x, int y) {
-        return (x >= minXY && x < BOARD_SIZE) && (y >= minXY && y < BOARD_SIZE);
+        return (x >= MIN_XY && x < BOARD_SIZE) && (y >= MIN_XY && y < BOARD_SIZE);
     }
 
     private class MyGestureListener extends GestureDetector.SimpleOnGestureListener {

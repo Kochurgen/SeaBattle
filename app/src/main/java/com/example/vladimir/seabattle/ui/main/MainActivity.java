@@ -2,7 +2,6 @@ package com.example.vladimir.seabattle.ui.main;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.support.annotation.IntRange;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +9,7 @@ import android.os.Bundle;
 
 import com.example.vladimir.seabattle.R;
 import com.example.vladimir.seabattle.controllers.Game;
+import com.example.vladimir.seabattle.enteritis.ContentType;
 import com.example.vladimir.seabattle.logic.models.Board;
 import com.example.vladimir.seabattle.logic.views.ComputerDrawView;
 import com.example.vladimir.seabattle.logic.views.UserDrawView;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements Game.GameListener
     }
 
     @Override
-    public void showDialog(final String playerName) {
+    public void showDialog(final ContentType player) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setPositiveButton(R.string.positive_button, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements Game.GameListener
             }
         });
         AlertDialog alertDialog = builder.create();
-        alertDialog.setTitle(getString(R.string.template_winner, playerName));
+        alertDialog.setTitle(getString(R.string.template_winner, player));
         alertDialog.setMessage(getString(R.string.question));
         alertDialog.show();
     }

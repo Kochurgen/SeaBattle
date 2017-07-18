@@ -24,17 +24,17 @@ public class DrawView extends View {
 
     private final static int STROKE_WIDTH = 5;
 
-    private final static int ALPHA_COLOR = 80;
-
-    private final static int RED = 102;
-
-    private final static int GREEN = 204;
-
-    private final static int BLUE = 255;
+    private final static int COLOR = 6737151;
 
     private final static int STEP_CELLS = 70;
 
-    private final static int startTopUserInf = 80;
+    private final static int START_TOP_USER_INF = 80;
+
+    private  final static int START_USER_BOARD = 100;
+
+    private  final static int START_POSITION = 115;
+
+    private  final static int TOP_POSITION = 150;
 
     private Board board;
 
@@ -67,7 +67,7 @@ public class DrawView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawARGB(ALPHA_COLOR, RED, GREEN, BLUE);
+        canvas.drawColor(COLOR);
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(Color.BLUE);
         paint.setStrokeWidth(STROKE_WIDTH);
@@ -76,11 +76,11 @@ public class DrawView extends View {
         updateUserBoard(canvas);
     }
 
-    public void updateUserBoard(Canvas canvas) {
+    private void updateUserBoard(Canvas canvas) {
         Rect commandRect = new Rect(0, STEP_CELLS, STEP_CELLS, 0);
-        int startUserBoard = 100;
-        for (int i = Board.minXY; i <= Board.MAX_XY; i++) {
-            for (int j = Board.minXY; j <= Board.MAX_XY; j++) {
+        int startUserBoard = START_USER_BOARD;
+        for (int i = Board.MIN_XY; i <= Board.MAX_XY; i++) {
+            for (int j = Board.MIN_XY; j <= Board.MAX_XY; j++) {
                 switch (board.getCell(i, j).getState()) {
                     case EMPTY:
                         paint.setColor(Color.BLUE);
@@ -112,10 +112,10 @@ public class DrawView extends View {
 
         paint.setColor(Color.BLUE);
         paint.setStyle(Paint.Style.STROKE);
-        int start = 115;
-        int top = 150;
+        int start = START_POSITION;
+        int top = TOP_POSITION;
         for (BoardLegend name : BoardLegend.values()) {
-            canvas.drawText(name.toString(), start, startTopUserInf, paint);
+            canvas.drawText(name.toString(), start, START_TOP_USER_INF, paint);
             canvas.drawText(String.valueOf(name.count()), startUserBoard - STEP_CELLS, top, paint);
             start += TEXT_STEP;
             top += TEXT_STEP;

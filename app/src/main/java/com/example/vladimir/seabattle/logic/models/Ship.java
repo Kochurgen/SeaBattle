@@ -22,18 +22,17 @@ class Ship {
 
     boolean leftAliveNeighbors() {
         for (Cell cell : shipCells) {
-            if (!cell.equals(this) && cell.isAlive()) return true;
+            if (cell.isAlive()) return true;
         }
         return false;
     }
 
     void die() {
-
         for (Cell cell : shipBoarding) {
-            cell.setState(Cell.cellState.MISSED);
+            cell.setState(Cell.CellState.MISSED);
         }
         for (Cell cell : shipCells) {
-            cell.setState(Cell.cellState.KILLED);
+            cell.setState(Cell.CellState.KILLED);
         }
     }
 }

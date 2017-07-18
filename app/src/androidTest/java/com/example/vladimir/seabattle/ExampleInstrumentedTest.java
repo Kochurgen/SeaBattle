@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.example.vladimir.seabattle.Interfaces.ShootCallback;
+import com.example.vladimir.seabattle.controllers.ShootCallback;
 import com.example.vladimir.seabattle.logic.models.AIPlayer;
 import com.example.vladimir.seabattle.logic.models.HPlayer;
 
@@ -23,9 +23,9 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
 
-    private ShootCallback shootCallback;
+    private final ShootCallback shootCallback;
 
-    private Random random = new Random();
+    private final Random random = new Random();
 
     public ExampleInstrumentedTest(ShootCallback shootCallback) {
         this.shootCallback = shootCallback;

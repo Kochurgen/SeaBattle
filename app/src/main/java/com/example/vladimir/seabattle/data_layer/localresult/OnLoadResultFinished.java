@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface OnLoadResultFinished {
     void onLoadResultSuccess(List<Result> results);
+    @SuppressWarnings({"EmptyMethod", "unused"})
     void onLoadResultError();
 }

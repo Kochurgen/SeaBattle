@@ -15,13 +15,13 @@ import static com.example.vladimir.seabattle.database_wrapper.DBController.USER_
 
 public class Result implements Parcelable {
 
-    private String userName;
+    private final String userName;
 
-    private int stepsCount;
+    private final int stepsCount;
 
-    private long gameDuration;
+    private final long gameDuration;
 
-    private ContentType contentType;
+    private final ContentType contentType;
 
     public Result(String userName, int stepsCount, long gameDuration, ContentType contentType) {
         this.userName = userName;
@@ -34,7 +34,8 @@ public class Result implements Parcelable {
         this.userName = cursor.getString(cursor.getColumnIndex(USER_NAME));
         this.stepsCount = cursor.getInt(cursor.getColumnIndex(STEP_COUNT));
         this.gameDuration = cursor.getInt(cursor.getColumnIndex(GAME_DURATION));
-        this.contentType = ContentType.valueOf(cursor.getString(cursor.getColumnIndex(CONTENT_TYPE)));
+        this.contentType =
+                ContentType.valueOf(cursor.getString(cursor.getColumnIndex(CONTENT_TYPE)));
     }
 
     public long getTimestamp() {

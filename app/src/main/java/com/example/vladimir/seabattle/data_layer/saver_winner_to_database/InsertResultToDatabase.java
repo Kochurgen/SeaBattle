@@ -24,14 +24,14 @@ public class InsertResultToDatabase extends AsyncQueryHandler implements InsertR
     }
 
     @Override
-    public void insertResult(Result result) {
-        startInsert(0, null, ResultsProvider.RESULTS_CONTENT_URI,
-                result.getContentValues());
-    }
-
-    @Override
     public void setOnInsertResultCallback(
             OnInsertResultCallback onInsertResultCallback) {
         this.onInsertResultCallback = onInsertResultCallback;
+    }
+
+    @Override
+    public void insertResult(Result result) {
+        startInsert(0, null, ResultsProvider.RESULTS_CONTENT_URI,
+                result.getContentValues());
     }
 }

@@ -12,28 +12,28 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 public class ResultsProvider extends ContentProvider {
-    final String LOG_TAG = "myLogs";
+    private final String LOG_TAG = "myLogs";
 
-    static final String AUTHORITY = "com.example.vladimir.seabattle";
+    private static final String AUTHORITY = "com.example.vladimir.seabattle";
 
-    static final String RESULTS_PATH = "results";
+    private static final String RESULTS_PATH = "results";
 
     public static final Uri RESULTS_CONTENT_URI = Uri.parse("content://"
             + AUTHORITY + "/" + RESULTS_PATH);
 
-    static final String RESULTS_CONTENT_TYPE = "vnd.android.cursor.dir/vnd."
+    private static final String RESULTS_CONTENT_TYPE = "vnd.android.cursor.dir/vnd."
             + AUTHORITY + "." + RESULTS_PATH;
 
-    static final String RESULTS_CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd."
+    private static final String RESULTS_CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd."
             + AUTHORITY + "." + RESULTS_PATH;
 
-    static final int URI_RESULTS = 1;
+    private static final int URI_RESULTS = 1;
 
-    static final int URI_RESULTS_USER_NAME = 2;
+    private static final int URI_RESULTS_USER_NAME = 2;
 
-    DBController dbHelper;
+    private DBController dbHelper;
 
-    SQLiteDatabase sqLiteDatabase;
+    private SQLiteDatabase sqLiteDatabase;
 
     private static final UriMatcher uriMatcher;
 
@@ -77,12 +77,12 @@ public class ResultsProvider extends ContentProvider {
 
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        int cnt = sqLiteDatabase.delete(getTableNameByUri(uri), selection, selectionArgs);
+        int contentID = sqLiteDatabase.delete(getTableNameByUri(uri), selection, selectionArgs);
         Context context = getContext();
         if (context != null) {
             getContext().getContentResolver().notifyChange(uri, null);
         }
-        return cnt;
+        return contentID;
     }
 
     public int update(@NonNull Uri uri, ContentValues values, String selection,
@@ -107,14 +107,8 @@ public class ResultsProvider extends ContentProvider {
         return null;
     }
 
-    private String getTableNameByUri(Uri uri) {
-        switch (uriMatcher.match(uri)) {
-            case URI_RESULTS_USER_NAME:
-                return DBController.TABLE_GAME_RESULTS;
-            case URI_RESULTS:
-                return DBController.TABLE_GAME_RESULTS;
-            default:
-                throw new IllegalArgumentException("Wrong URI: " + uri);
-        }
+    @SuppressWarnings("SameReturnValue")
+    private String getTableNameByUri(@SuppressWarnings("UnusedParameters") Uri uri) {
+        return DBController.TABLE_GAME_RESULTS;
     }
 }

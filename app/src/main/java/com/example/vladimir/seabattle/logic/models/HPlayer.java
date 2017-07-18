@@ -1,7 +1,7 @@
 package com.example.vladimir.seabattle.logic.models;
 
 
-import com.example.vladimir.seabattle.Interfaces.ShootCallback;
+import com.example.vladimir.seabattle.controllers.ShootCallback;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class HPlayer extends Player {
 
-    private Random random = new Random();
+    private final Random random = new Random();
 
     private final static int MAX_SHIP_LENGTH = 4;
 
@@ -24,13 +24,13 @@ public class HPlayer extends Player {
 
     private Cell[][] emptyCells;
 
-    private List<Integer> leftAimsCells = new ArrayList<>();
+    private final List<Integer> leftAimsCells = new ArrayList<>();
 
-    private List<Integer> rightAimsCells = new ArrayList<>();
+    private final List<Integer> rightAimsCells = new ArrayList<>();
 
-    private List<Integer> topAimsCells = new ArrayList<>();
+    private final List<Integer> topAimsCells = new ArrayList<>();
 
-    private List<Integer> downAimsCells = new ArrayList<>();
+    private final List<Integer> downAimsCells = new ArrayList<>();
 
     private List<Integer> currentAims = new ArrayList<>();
 
@@ -41,11 +41,10 @@ public class HPlayer extends Player {
     private boolean aimsCalculated = false;
 
     {
-        myTurn = false;
     }
 
     public HPlayer(ShootCallback callback) {
-        super(callback);
+        super();
         emptyCells = new Cell[Board.MAX_XY][Board.MAX_XY];
         shootCells = new ArrayList<>();
         createEmptyCells();
@@ -104,9 +103,9 @@ public class HPlayer extends Player {
 
     private void createEmptyCells() {
         emptyCells = new Cell[BOARD_LENGTH][BOARD_LENGTH];
-        for (int i = Board.minXY; i <= Board.MAX_XY; i++) {
-            for (int j = Board.minXY; j <= Board.MAX_XY; j++) {
-                emptyCells[i][j] = new Cell(j, i, Cell.cellState.EMPTY, null);
+        for (int i = Board.MIN_XY; i <= Board.MAX_XY; i++) {
+            for (int j = Board.MIN_XY; j <= Board.MAX_XY; j++) {
+                emptyCells[i][j] = new Cell(j, i);
             }
         }
     }
@@ -117,32 +116,34 @@ public class HPlayer extends Player {
         aimsCalculated = true;
         for (int i = x + MIN_SHIP_LENGTH; i < x + MAX_SHIP_LENGTH; ++i) {
             if (i < BOARD_LENGTH) {
-                if (emptyCells[i][y].getState() == Cell.cellState.MISSED) break;
-                if (emptyCells[i][y].getState() == Cell.cellState.EMPTY) rightAimsCells.add(i);
+                if (emptyCells[i][y].getState() == Cell.CellState.MISSED) break;
+                if (emptyCells[i][y].getState() == Cell.CellState.EMPTY) rightAimsCells.add(i);
             } else break;
         }
         for (int i = x - MIN_SHIP_LENGTH; i > x - MAX_SHIP_LENGTH; --i) {
-            if (i >= Board.minXY) {
-                if (emptyCells[i][y].getState() == Cell.cellState.MISSED) break;
-                if (emptyCells[i][y].getState() == Cell.cellState.EMPTY) leftAimsCells.add(i);
+            if (i >= Board.MIN_XY) {
+                if (emptyCells[i][y].getState() == Cell.CellState.MISSED) break;
+                if (emptyCells[i][y].getState() == Cell.CellState.EMPTY) leftAimsCells.add(i);
             } else break;
         }
         for (int i = y - MIN_SHIP_LENGTH; i > y - MAX_SHIP_LENGTH; --i) {
-            if (i >= Board.minXY) {
-                if (emptyCells[x][i].getState() == Cell.cellState.MISSED) break;
-                if (emptyCells[x][i].getState() == Cell.cellState.EMPTY) topAimsCells.add(i);
+            if (i >= Board.MIN_XY) {
+                if (emptyCells[x][i].getState() == Cell.CellState.MISSED) break;
+                if (emptyCells[x][i].getState() == Cell.CellState.EMPTY) topAimsCells.add(i);
             } else break;
         }
         for (int i = y + MIN_SHIP_LENGTH; i < y + MAX_SHIP_LENGTH; ++i) {
             if (i < BOARD_LENGTH) {
-                if (emptyCells[x][i].getState() == Cell.cellState.MISSED) break;
-                if (emptyCells[x][i].getState() == Cell.cellState.EMPTY) downAimsCells.add(i);
+                if (emptyCells[x][i].getState() == Cell.CellState.MISSED) break;
+                if (emptyCells[x][i].getState() == Cell.CellState.EMPTY) downAimsCells.add(i);
             } else break;
         }
     }
 
     private int[] getNextCoordinates() {
-        if (!aimsCalculated) calculateAims();
+        if (!aimsCalculated) {
+            calculateAims();
+        }
         int[] res = new int[2];
         if (!leftAimsCells.isEmpty()) {
             currentAims = leftAimsCells;

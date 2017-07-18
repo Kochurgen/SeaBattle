@@ -10,15 +10,13 @@ import com.example.vladimir.seabattle.R;
 import com.example.vladimir.seabattle.enteritis.ContentType;
 import com.example.vladimir.seabattle.logic.models.Result;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class ResultsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+class ResultsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Result> results;
+    private final List<Result> results;
 
-    public ResultsAdapter(List<Result> results) {
+    ResultsAdapter(List<Result> results) {
         this.results = results;
     }
 
@@ -40,9 +38,8 @@ public class ResultsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         Result result = results.get(position);
         if (result != null) {
             ((ResultsViewHolder) holder).name.setText(result.getUserName());
-            DateFormat dateFormat = new SimpleDateFormat("mm:ss");
-            ((ResultsViewHolder) holder).steps.setText(dateFormat.format(result.getStepsCount()));
-            ((ResultsViewHolder) holder).time.setText(String.valueOf(result.getTimestamp()));
+            ((ResultsViewHolder) holder).time.setText(TimeFormat.convertTimeStampToDate(result.getTimestamp()));
+            ((ResultsViewHolder) holder).steps.setText(String.valueOf(result.getStepsCount()));
         }
     }
 
@@ -51,12 +48,12 @@ public class ResultsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return results.size();
     }
 
-    public static class ResultsViewHolder extends RecyclerView.ViewHolder {
-        private TextView name;
-        private TextView steps;
-        private TextView time;
+    private static class ResultsViewHolder extends RecyclerView.ViewHolder {
+        private final TextView name;
+        private final TextView steps;
+        private final TextView time;
 
-        public ResultsViewHolder(View itemView) {
+        ResultsViewHolder(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.name);
             steps = (TextView) itemView.findViewById(R.id.steps);

@@ -1,6 +1,5 @@
 package com.example.vladimir.seabattle.logic.views;
 
-
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;

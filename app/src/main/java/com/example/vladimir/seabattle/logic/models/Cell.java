@@ -4,12 +4,15 @@ import java.util.List;
 
 public class Cell {
 
-    private int x;
-    private int y;
-    private Ship ship;
-    private cellState state;
+    private final int x;
 
-    public enum cellState {
+    private final int y;
+
+    private Ship ship;
+
+    private CellState state;
+
+    public enum CellState {
         EMPTY,
         ALIVE,
         INJURED,
@@ -17,27 +20,26 @@ public class Cell {
         MISSED
     }
 
-    public cellState getState() {
+    public CellState getState() {
         return state;
     }
 
-    Cell(int x, int y, cellState state, Ship ship) {
+    Cell(int x, int y) {
         this.x = x;
         this.y = y;
-        this.ship = ship;
-        this.state = state;
+        this.state = CellState.EMPTY;
     }
 
     void setShip(Ship ship) {
         this.ship = ship;
     }
 
-    void setState(cellState state) {
+    void setState(CellState state) {
         this.state = state;
     }
 
     boolean isAlive() {
-        return state == cellState.ALIVE;
+        return state == CellState.ALIVE;
     }
 
     boolean isShip() {
@@ -47,11 +49,11 @@ public class Cell {
     void shot() {
         switch (state) {
             case EMPTY:
-                setState(cellState.MISSED);
+                setState(CellState.MISSED);
                 break;
             case ALIVE:
                 if (ship.leftAliveNeighbors()) {
-                    setState(cellState.INJURED);
+                    setState(CellState.INJURED);
                 } else {
                     ship.die();
                 }
@@ -64,7 +66,7 @@ public class Cell {
         int count = 0;
         List<Cell> cells = ship.getShipCells();
         for (int i = 0; i < ship.getShipCells().size(); i++) {
-            if (cells.get(i).getState() == Cell.cellState.ALIVE) {
+            if (cells.get(i).getState() == CellState.ALIVE) {
                 break;
             } else {
                 count++;
@@ -75,11 +77,27 @@ public class Cell {
         }
     }
 
-    public int getX() {
-        return x;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Cell cell = (Cell) o;
+
+        if (x != cell.x) return false;
+        if (y != cell.y) return false;
+        if (ship != null ? !ship.equals(cell.ship) : cell.ship != null) return false;
+        return state == cell.state;
+
     }
 
-    public int getY() {
-        return y;
+    @Override
+    public int hashCode() {
+        int result = x;
+        result = 31 * result + y;
+        result = 31 * result + (ship != null ? ship.hashCode() : 0);
+        result = 31 * result + (state != null ? state.hashCode() : 0);
+        return result;
     }
+
 }
