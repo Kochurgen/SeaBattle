@@ -1,4 +1,4 @@
-package com.example.vladimir.seabattle.data_layer.localresult;
+package com.example.vladimir.seabattle.data_layer.loadresult;
 
 
 import android.app.LoaderManager;
@@ -10,7 +10,7 @@ import android.os.Bundle;
 
 import com.example.vladimir.seabattle.database_wrapper.DBController;
 import com.example.vladimir.seabattle.database_wrapper.ResultsProvider;
-import com.example.vladimir.seabattle.enteritis.ContentType;
+import com.example.vladimir.seabattle.enteities.ContentType;
 import com.example.vladimir.seabattle.logic.models.Result;
 
 import java.util.ArrayList;
@@ -58,53 +58,24 @@ public class LoaderResultLocalDatabase implements ILoadResult,
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        List<Result> computerData = new ArrayList<>();
-        List<Result> userData = new ArrayList<>();
-        if (cursor != null && cursor.moveToFirst()) {
+        List<Result> results = new ArrayList<>();
+        if ((cursor != null) && (cursor.moveToFirst())) {
             try {
                 do {
-                    ContentType contentType = ContentType.valueOf(
-                            cursor.getString(cursor.getColumnIndex(DBController.CONTENT_TYPE)));
-                    switch (contentType) {
-                        case COMPUTER:
-                            computerData.add(new Result(cursor));
-                            break;
-                        case HUMAN:
-                            userData.add(new Result(cursor));
-                            break;
-                    }
+                    results.add(new Result(cursor));
                 } while (cursor.moveToNext());
             } finally {
                 cursor.close();
             }
         }
         if (onLoadResultFinished != null) {
-            onLoadResultFinished.onLoadResultSuccess(mergeResult(computerData, userData));
+            onLoadResultFinished
+                    .onLoadResultSuccess(TransformatorResultsUtil.transformResultsForView(results));
         }
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
-    }
-
-    private List<Result> mergeResult(List<Result> compResults, List<Result> userResults) {
-        List<Result> results;
-        if (compResults.size() > userResults.size()) {
-            results = concatList(compResults, userResults);
-        } else {
-            results = concatList(userResults, compResults);
-        }
-        return results;
-    }
-
-    private List<Result> concatList(List<Result> big, List<Result> small) {
-        List<Result> concatList = new ArrayList<>();
-        for (int i = 0; i < small.size(); i++) {
-            concatList.add(small.get(i));
-            concatList.add(big.get(i));
-        }
-        concatList.addAll(big.subList(small.size(), big.size()));
-        return concatList;
     }
 }

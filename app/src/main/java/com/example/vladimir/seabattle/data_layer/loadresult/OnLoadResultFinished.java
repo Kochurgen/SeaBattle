@@ -1,4 +1,4 @@
-package com.example.vladimir.seabattle.data_layer.localresult;
+package com.example.vladimir.seabattle.data_layer.loadresult;
 
 import com.example.vladimir.seabattle.logic.models.Result;
 

@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
-import com.example.vladimir.seabattle.enteritis.BoardLegend;
+import com.example.vladimir.seabattle.enteities.BoardLegend;
 
 import static com.example.vladimir.seabattle.logic.models.Board.BOARD_SIZE;
 import static com.example.vladimir.seabattle.logic.models.Board.MIN_XY;

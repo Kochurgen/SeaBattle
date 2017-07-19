@@ -1,4 +1,4 @@
-package com.example.vladimir.seabattle.enteritis;
+package com.example.vladimir.seabattle.enteities;
 
 public enum ContentType {
     COMPUTER("COMPUTER"), HUMAN("HUMAN");

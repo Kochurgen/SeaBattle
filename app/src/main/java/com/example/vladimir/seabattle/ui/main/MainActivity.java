@@ -9,7 +9,7 @@ import android.os.Bundle;
 
 import com.example.vladimir.seabattle.R;
 import com.example.vladimir.seabattle.controllers.Game;
-import com.example.vladimir.seabattle.enteritis.ContentType;
+import com.example.vladimir.seabattle.enteities.ContentType;
 import com.example.vladimir.seabattle.logic.models.Board;
 import com.example.vladimir.seabattle.logic.views.ComputerDrawView;
 import com.example.vladimir.seabattle.logic.views.UserDrawView;

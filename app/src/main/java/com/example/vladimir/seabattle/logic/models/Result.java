@@ -6,7 +6,8 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.example.vladimir.seabattle.enteritis.ContentType;
+import com.example.vladimir.seabattle.enteities.ContentType;
+import com.google.firebase.database.Exclude;
 
 import static com.example.vladimir.seabattle.database_wrapper.DBController.CONTENT_TYPE;
 import static com.example.vladimir.seabattle.database_wrapper.DBController.GAME_DURATION;
@@ -15,13 +16,15 @@ import static com.example.vladimir.seabattle.database_wrapper.DBController.USER_
 
 public class Result implements Parcelable {
 
-    private final String userName;
+    public String userName;
 
-    private final int stepsCount;
+    public int stepsCount;
 
-    private final long gameDuration;
+    public long gameDuration;
 
-    private final ContentType contentType;
+    public ContentType contentType;
+
+    public Result() {}
 
     public Result(String userName, int stepsCount, long gameDuration, ContentType contentType) {
         this.userName = userName;
@@ -38,23 +41,27 @@ public class Result implements Parcelable {
                 ContentType.valueOf(cursor.getString(cursor.getColumnIndex(CONTENT_TYPE)));
     }
 
+    @Exclude
     public long getTimestamp() {
         return gameDuration;
     }
 
+    @Exclude
     public int getStepsCount() {
         return stepsCount;
     }
 
+    @Exclude
     public String getUserName() {
         return userName;
     }
 
+    @Exclude
     public ContentType getContactType(){
         return contentType;
     }
 
-
+    @Exclude
     public ContentValues getContentValues() {
         ContentValues contentValues = new ContentValues();
         contentValues.put(USER_NAME, userName);
@@ -64,12 +71,12 @@ public class Result implements Parcelable {
         return contentValues;
     }
 
-    @Override
+    @Override @Exclude
     public int describeContents() {
         return 0;
     }
 
-    @Override
+    @Override @Exclude
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.userName);
         dest.writeInt(this.stepsCount);
@@ -77,14 +84,7 @@ public class Result implements Parcelable {
         dest.writeInt(this.contentType == null ? -1 : this.contentType.ordinal());
     }
 
-    private Result(Parcel in) {
-        this.userName = in.readString();
-        this.stepsCount = in.readInt();
-        this.gameDuration = in.readLong();
-        int tmpContentType = in.readInt();
-        this.contentType = tmpContentType == -1 ? null : ContentType.values()[tmpContentType];
-    }
-
+    @Exclude
     public static final Creator<Result> CREATOR = new Creator<Result>() {
         @Override
         public Result createFromParcel(Parcel source) {
@@ -96,4 +96,12 @@ public class Result implements Parcelable {
             return new Result[size];
         }
     };
+
+    private Result(Parcel in) {
+        this.userName = in.readString();
+        this.stepsCount = in.readInt();
+        this.gameDuration = in.readLong();
+        int tmpContentType = in.readInt();
+        this.contentType = tmpContentType == -1 ? null : ContentType.values()[tmpContentType];
+    }
 }

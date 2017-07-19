@@ -10,7 +10,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.example.vladimir.seabattle.enteritis.BoardLegend;
+import com.example.vladimir.seabattle.enteities.BoardLegend;
 import com.example.vladimir.seabattle.R;
 import com.example.vladimir.seabattle.logic.models.Board;
 

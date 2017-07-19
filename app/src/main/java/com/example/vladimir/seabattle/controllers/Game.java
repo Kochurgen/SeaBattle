@@ -7,7 +7,8 @@ import android.support.annotation.IntRange;
 
 import com.example.vladimir.seabattle.data_layer.saver_winner_to_database.InsertResult;
 import com.example.vladimir.seabattle.data_layer.saver_winner_to_database.InsertResultToDatabase;
-import com.example.vladimir.seabattle.enteritis.ContentType;
+import com.example.vladimir.seabattle.data_layer.saver_winner_to_database.InsertResultToFireBase;
+import com.example.vladimir.seabattle.enteities.ContentType;
 import com.example.vladimir.seabattle.logic.models.AIPlayer;
 import com.example.vladimir.seabattle.logic.models.Board;
 import com.example.vladimir.seabattle.logic.models.HPlayer;
@@ -48,7 +49,8 @@ public class Game implements ShootCallback {
 
     public Game(Context context, GameListener gameListener) {
         this.gameListener = gameListener;
-        this.insertResult = new InsertResultToDatabase(context);
+//        this.insertResult = new InsertResultToDatabase(context);
+        this.insertResult = new InsertResultToFireBase();
         createNewGame();
     }
 

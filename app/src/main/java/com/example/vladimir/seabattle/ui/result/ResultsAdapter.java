@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.vladimir.seabattle.R;
-import com.example.vladimir.seabattle.enteritis.ContentType;
+import com.example.vladimir.seabattle.enteities.ContentType;
 import com.example.vladimir.seabattle.logic.models.Result;
 
 import java.util.List;
