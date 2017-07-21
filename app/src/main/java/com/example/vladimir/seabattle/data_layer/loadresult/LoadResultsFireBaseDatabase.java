@@ -35,7 +35,7 @@ public class LoadResultsFireBaseDatabase implements ILoadResult {
                         }
                     }
                     if (onLoadResultFinished != null) {
-                        onLoadResultFinished.onLoadResultSuccess(TransformatorResultsUtil.transformResultsForView(results));
+                        onLoadResultFinished.onLoadResultSuccess(TransformResultsUtil.transformResultsForView(results));
                     }
                 }
             }

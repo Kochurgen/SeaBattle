@@ -37,7 +37,7 @@ public class HPlayer extends Player {
 
     private List<Integer> currentAims = new ArrayList<>();
 
-    private Collection<Cell> shootCells;
+    private final Collection<Cell> shootCells;
 
     private boolean shootToPotentialAims;
 
@@ -194,8 +194,4 @@ public class HPlayer extends Player {
         topAimsCells.clear();
     }
 
-    @Override
-    public String getPlayerName() {
-        return user.getFullName();
-    }
 }

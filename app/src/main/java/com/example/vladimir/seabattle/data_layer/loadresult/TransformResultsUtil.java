@@ -6,7 +6,7 @@ import com.example.vladimir.seabattle.logic.models.Result;
 import java.util.ArrayList;
 import java.util.List;
 
-class TransformatorResultsUtil {
+class TransformResultsUtil {
 
     public static List<Result> transformResultsForView(final List<Result> results) {
         List<Result> computerResults = new ArrayList<>();

@@ -2,12 +2,9 @@ package com.example.vladimir.seabattle.players;
 
 import android.support.annotation.IntRange;
 
-import com.example.vladimir.seabattle.controllers.ShootCallback;
 import com.example.vladimir.seabattle.logic.models.Board;
 import com.example.vladimir.seabattle.logic.models.Cell;
 import com.example.vladimir.seabattle.logic.models.User;
-
-import java.util.List;
 
 public abstract class Player {
 
@@ -44,7 +41,5 @@ public abstract class Player {
         }
         return null;
     }
-
-    abstract public String getPlayerName();
 
 }

@@ -4,6 +4,7 @@ package com.example.vladimir.seabattle.logic.models;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
+@SuppressWarnings("WeakerAccess")
 @IgnoreExtraProperties
 public class User {
     public String firstName;

@@ -5,11 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.vladimir.seabattle.data_layer.loadresult.FactoryLoaderResultAction;
 import com.example.vladimir.seabattle.data_layer.loadresult.ILoadResult;
 import com.example.vladimir.seabattle.data_layer.loadresult.LoadResultsFireBaseDatabase;
 import com.example.vladimir.seabattle.data_layer.loadresult.OnLoadResultFinished;
 import com.example.vladimir.seabattle.R;
-import com.example.vladimir.seabattle.data_layer.loadresult.LoaderResultLocalDatabase;
 import com.example.vladimir.seabattle.logic.models.Result;
 
 import java.util.ArrayList;
@@ -45,8 +45,10 @@ public class ResultActivity extends AppCompatActivity implements OnLoadResultFin
     }
 
     private void startLoad() {
-        ILoadResult iLoadResult = new LoadResultsFireBaseDatabase();
-//        new LoaderResultLocalDatabase(getApplicationContext(), getLoaderManager());
+        FactoryLoaderResultAction factoryLoaderResultAction = new FactoryLoaderResultAction();
+
+        ILoadResult iLoadResult =
+                factoryLoaderResultAction.getLoader(getApplicationContext(), getLoaderManager());
         iLoadResult.setCallback(this);
         iLoadResult.load();
     }

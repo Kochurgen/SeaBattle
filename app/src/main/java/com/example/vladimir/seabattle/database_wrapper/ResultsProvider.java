@@ -9,10 +9,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 public class ResultsProvider extends ContentProvider {
-    private final String LOG_TAG = "myLogs";
 
     private static final String AUTHORITY = "com.example.vladimir.seabattle";
 
@@ -44,7 +42,6 @@ public class ResultsProvider extends ContentProvider {
     }
 
     public boolean onCreate() {
-        Log.d(LOG_TAG, "onCreate");
         dbHelper = new DBController(getContext());
         return true;
     }

@@ -70,7 +70,7 @@ public class LoaderResultLocalDatabase implements ILoadResult,
         }
         if (onLoadResultFinished != null) {
             onLoadResultFinished
-                    .onLoadResultSuccess(TransformatorResultsUtil.transformResultsForView(results));
+                    .onLoadResultSuccess(TransformResultsUtil.transformResultsForView(results));
         }
     }
 

@@ -8,12 +8,15 @@ import android.os.Parcelable;
 
 import com.example.vladimir.seabattle.enteities.ContentType;
 import com.google.firebase.database.Exclude;
+import com.google.firebase.database.IgnoreExtraProperties;
 
 import static com.example.vladimir.seabattle.database_wrapper.DBController.CONTENT_TYPE;
 import static com.example.vladimir.seabattle.database_wrapper.DBController.GAME_DURATION;
 import static com.example.vladimir.seabattle.database_wrapper.DBController.STEP_COUNT;
 import static com.example.vladimir.seabattle.database_wrapper.DBController.USER_NAME;
 
+@SuppressWarnings("WeakerAccess")
+@IgnoreExtraProperties
 public class Result implements Parcelable {
 
     public User user;
