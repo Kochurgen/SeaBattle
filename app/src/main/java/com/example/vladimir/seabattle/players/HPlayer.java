@@ -1,7 +1,10 @@
-package com.example.vladimir.seabattle.logic.models;
+package com.example.vladimir.seabattle.players;
 
 
 import com.example.vladimir.seabattle.controllers.ShootCallback;
+import com.example.vladimir.seabattle.logic.models.Board;
+import com.example.vladimir.seabattle.logic.models.Cell;
+import com.example.vladimir.seabattle.logic.models.User;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,11 +43,8 @@ public class HPlayer extends Player {
 
     private boolean aimsCalculated = false;
 
-    {
-    }
-
-    public HPlayer(ShootCallback callback) {
-        super();
+    public HPlayer(final ShootCallback callback, final User user) {
+        super(user);
         emptyCells = new Cell[Board.MAX_XY][Board.MAX_XY];
         shootCells = new ArrayList<>();
         createEmptyCells();
@@ -194,4 +194,8 @@ public class HPlayer extends Player {
         topAimsCells.clear();
     }
 
+    @Override
+    public String getPlayerName() {
+        return user.getFullName();
+    }
 }

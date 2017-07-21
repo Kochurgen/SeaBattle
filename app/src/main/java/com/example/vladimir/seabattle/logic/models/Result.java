@@ -16,6 +16,8 @@ import static com.example.vladimir.seabattle.database_wrapper.DBController.USER_
 
 public class Result implements Parcelable {
 
+    public User user;
+
     public String userName;
 
     public int stepsCount;
@@ -26,8 +28,8 @@ public class Result implements Parcelable {
 
     public Result() {}
 
-    public Result(String userName, int stepsCount, long gameDuration, ContentType contentType) {
-        this.userName = userName;
+    public Result(User user, int stepsCount, long gameDuration, ContentType contentType) {
+        this.user = user;
         this.stepsCount = stepsCount;
         this.gameDuration = gameDuration;
         this.contentType = contentType;
@@ -53,7 +55,11 @@ public class Result implements Parcelable {
 
     @Exclude
     public String getUserName() {
-        return userName;
+        if(userName != null) {
+            return userName;
+        } else {
+            return user.getFullName();
+        }
     }
 
     @Exclude

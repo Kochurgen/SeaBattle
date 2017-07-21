@@ -3,4 +3,7 @@
     <dimen name="default_padding">4dp</dimen>
     <dimen name="text_size">20dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="editor_height">60dp</dimen>
+    <dimen name="margin_top">10dp</dimen>
+    <dimen name="user_name_top_margin">20dp</dimen>
 </resources>

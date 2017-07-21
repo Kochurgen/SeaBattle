@@ -14,13 +14,13 @@
             android:screenOrientation="userLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.result.ResultActivity"
             android:label="@string/title_activity_result"
+            android:screenOrientation="userPortrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <provider

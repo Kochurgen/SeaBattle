@@ -5,8 +5,8 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.example.vladimir.seabattle.controllers.ShootCallback;
-import com.example.vladimir.seabattle.logic.models.AIPlayer;
-import com.example.vladimir.seabattle.logic.models.HPlayer;
+import com.example.vladimir.seabattle.players.AIPlayer;
+import com.example.vladimir.seabattle.players.HPlayer;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,13 +45,13 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void testHPlayer() throws Exception {
-        HPlayer hplayer = new HPlayer(shootCallback);
+        HPlayer hplayer = new HPlayer(shootCallback, userName);
         assertEquals(hplayer, hplayer);
     }
 
     @Test
     public void testHumanBoard() throws Exception {
-        HPlayer hplayer = new HPlayer(shootCallback);
+        HPlayer hplayer = new HPlayer(shootCallback, userName);
         assertNotNull(hplayer.board);
     }
 
@@ -63,7 +63,7 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void testCreateShips() throws Exception {
-        HPlayer hplayer = new HPlayer(shootCallback);
+        HPlayer hplayer = new HPlayer(shootCallback, userName);
         AIPlayer aiplayer = new AIPlayer(shootCallback);
         assertTrue(aiplayer.board.getKilledShips() == hplayer.board.getKilledShips());
     }
@@ -78,14 +78,14 @@ public class ExampleInstrumentedTest {
     @Test
     public void testShotHPlayer() throws Exception {
         int[] randomXY = getRandomXY();
-        HPlayer hplayer = new HPlayer(shootCallback);
+        HPlayer hplayer = new HPlayer(shootCallback, userName);
         assertNotNull(hplayer.shoot(randomXY[0], randomXY[1]));
     }
 
     @Test
     public void testDoubleShot() throws Exception {
         int[] randomXY = getRandomXY();
-        HPlayer hplayer = new HPlayer(shootCallback);
+        HPlayer hplayer = new HPlayer(shootCallback, userName);
         hplayer.shoot(randomXY[0], randomXY[1]);
         assertNull(hplayer.shoot(randomXY[0], randomXY[1]));
     }

@@ -73,7 +73,9 @@ public class DrawView extends View {
         paint.setStrokeWidth(STROKE_WIDTH);
         paint.setStyle(Paint.Style.STROKE);
         paint.setTextSize(TEXT_SIZE);
-        updateUserBoard(canvas);
+        if (board != null) {
+            updateUserBoard(canvas);
+        }
     }
 
     private void updateUserBoard(Canvas canvas) {

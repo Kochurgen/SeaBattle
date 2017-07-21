@@ -1,12 +1,17 @@
-package com.example.vladimir.seabattle.logic.models;
+package com.example.vladimir.seabattle.players;
 
 import android.support.annotation.IntRange;
 
 import com.example.vladimir.seabattle.controllers.ShootCallback;
+import com.example.vladimir.seabattle.logic.models.Board;
+import com.example.vladimir.seabattle.logic.models.Cell;
+import com.example.vladimir.seabattle.logic.models.User;
 
 import java.util.List;
 
 public abstract class Player {
+
+    public final User user;
 
     public final Board board;
 
@@ -16,9 +21,10 @@ public abstract class Player {
         KILLED
     }
 
-    Player() {
-        board = new Board();
-        board.createShips();
+    Player(final User user) {
+        this.user = user;
+        this.board = new Board();
+        this.board.createShips();
     }
 
     public ShootResult shoot(@IntRange(from = 0, to = 9) int x, @IntRange(from = 0, to = 9) int y) {
@@ -38,5 +44,7 @@ public abstract class Player {
         }
         return null;
     }
+
+    abstract public String getPlayerName();
 
 }

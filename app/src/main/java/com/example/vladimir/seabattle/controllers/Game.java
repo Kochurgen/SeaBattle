@@ -6,14 +6,14 @@ import android.os.SystemClock;
 import android.support.annotation.IntRange;
 
 import com.example.vladimir.seabattle.data_layer.saver_winner_to_database.InsertResult;
-import com.example.vladimir.seabattle.data_layer.saver_winner_to_database.InsertResultToDatabase;
 import com.example.vladimir.seabattle.data_layer.saver_winner_to_database.InsertResultToFireBase;
 import com.example.vladimir.seabattle.enteities.ContentType;
-import com.example.vladimir.seabattle.logic.models.AIPlayer;
+import com.example.vladimir.seabattle.players.AIPlayer;
 import com.example.vladimir.seabattle.logic.models.Board;
-import com.example.vladimir.seabattle.logic.models.HPlayer;
-import com.example.vladimir.seabattle.logic.models.Player;
+import com.example.vladimir.seabattle.players.HPlayer;
+import com.example.vladimir.seabattle.players.Player;
 import com.example.vladimir.seabattle.logic.models.Result;
+import com.example.vladimir.seabattle.logic.models.User;
 
 import java.util.concurrent.TimeUnit;
 
@@ -24,6 +24,8 @@ public class Game implements ShootCallback {
     private HPlayer humanPlayer;
 
     private AIPlayer aiPlayer;
+
+    private final User user;
 
     private final GameListener gameListener;
 
@@ -42,13 +44,14 @@ public class Game implements ShootCallback {
     private final InsertResult insertResult;
 
     public interface GameListener {
-        void showDialog(final ContentType player);
+        void showEndGameDialog(final ContentType player);
 
         void updateDate(final Board userBoard, final Board computerBoard);
     }
 
-    public Game(Context context, GameListener gameListener) {
+    public Game(Context context, User user, GameListener gameListener) {
         this.gameListener = gameListener;
+        this.user = user;
 //        this.insertResult = new InsertResultToDatabase(context);
         this.insertResult = new InsertResultToFireBase();
         createNewGame();
@@ -56,7 +59,7 @@ public class Game implements ShootCallback {
 
     public void createNewGame() {
         aiPlayer = new AIPlayer(this);
-        humanPlayer = new HPlayer(this);
+        humanPlayer = new HPlayer(this, user);
         updateView();
         userSteps = 0;
         computerSteps = 0;
@@ -78,10 +81,10 @@ public class Game implements ShootCallback {
         Result result;
         if (isShipFinished()) {
             if (isComputerShipsFinished()) {
-                result = new Result(ContentType.HUMAN.toString(), userSteps, updatedTime,
+                result = new Result(humanPlayer.user, userSteps, updatedTime,
                         ContentType.HUMAN);
             } else {
-                result = new Result(ContentType.COMPUTER.toString(), computerSteps, updatedTime,
+                result = new Result(aiPlayer.user, computerSteps, updatedTime,
                         ContentType.COMPUTER);
             }
             finishProcessing(result);
@@ -106,7 +109,7 @@ public class Game implements ShootCallback {
             winnerType = ContentType.HUMAN;
         }
         if (gameListener != null) {
-            gameListener.showDialog(winnerType);
+            gameListener.showEndGameDialog(winnerType);
         }
     }
 

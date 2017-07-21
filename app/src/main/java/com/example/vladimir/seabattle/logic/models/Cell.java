@@ -24,7 +24,7 @@ public class Cell {
         return state;
     }
 
-    Cell(int x, int y) {
+    public Cell(int x, int y) {
         this.x = x;
         this.y = y;
         this.state = CellState.EMPTY;
@@ -46,7 +46,7 @@ public class Cell {
         return this.ship != null;
     }
 
-    void shot() {
+    public void shot() {
         switch (state) {
             case EMPTY:
                 setState(CellState.MISSED);
@@ -62,7 +62,7 @@ public class Cell {
         }
     }
 
-    void markKilledShips() {
+    private void markKilledShips() {
         int count = 0;
         List<Cell> cells = ship.getShipCells();
         for (int i = 0; i < ship.getShipCells().size(); i++) {

@@ -21,7 +21,7 @@ public class DBController extends SQLiteOpenHelper {
 
     private final static int DB_VERSION = 1;
 
-    public DBController(Context context) {
+    DBController(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 

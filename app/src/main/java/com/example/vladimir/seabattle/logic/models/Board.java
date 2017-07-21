@@ -25,7 +25,7 @@ public class Board {
 
     private final Random random = new Random();
 
-    Board() {
+    public Board() {
         myBoard = new Cell[BOARD_SIZE][BOARD_SIZE];
         createEmptyBoard();
     }
@@ -39,7 +39,7 @@ public class Board {
         }
     }
 
-    void createShips() {
+    public void createShips() {
         ships = new ArrayList<>();
         int MAX_SHIP_SIZE = 4;
         int MIN_SHIP_SIZE = 1;

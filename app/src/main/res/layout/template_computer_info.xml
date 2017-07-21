@@ -9,44 +9,17 @@
         android:baselineAligned="false"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <include
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:textAlignment="center"
-                android:textSize="@dimen/text_size"/>
-        </LinearLayout>
-
-        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical">
+            layout="@layout/name_part"/>
 
-            <TextView
-                android:id="@+id/steps"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:textAlignment="center"
-                android:textSize="@dimen/text_size"/>
-
-            <TextView
-                android:id="@+id/time"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:textAlignment="center"
-                android:textSize="@dimen/text_size"/>
-        </LinearLayout>
+        <include
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            layout="@layout/game_result_part"
+            />
     </LinearLayout>
 </RelativeLayout>

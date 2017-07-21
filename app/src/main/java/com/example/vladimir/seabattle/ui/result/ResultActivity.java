@@ -46,7 +46,7 @@ public class ResultActivity extends AppCompatActivity implements OnLoadResultFin
 
     private void startLoad() {
         ILoadResult iLoadResult = new LoadResultsFireBaseDatabase();
-//                new LoaderResultLocalDatabase(getApplicationContext(), getLoaderManager());
+//        new LoaderResultLocalDatabase(getApplicationContext(), getLoaderManager());
         iLoadResult.setCallback(this);
         iLoadResult.load();
     }
