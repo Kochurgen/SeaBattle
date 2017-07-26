@@ -17,7 +17,7 @@ import com.example.vladimir.seabattle.logic.models.User;
 
 import java.util.concurrent.TimeUnit;
 
-public class Game implements ShootCallback {
+public class Game {
 
     private final static int SHIP_SIZE = 10;
 
@@ -58,8 +58,8 @@ public class Game implements ShootCallback {
     }
 
     public void createNewGame() {
-        aiPlayer = new AIPlayer(this);
-        humanPlayer = new HPlayer(this, user);
+        aiPlayer = new AIPlayer();
+        humanPlayer = new HPlayer(user);
         updateView();
         userSteps = 0;
         computerSteps = 0;

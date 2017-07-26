@@ -1,7 +1,5 @@
 package com.example.vladimir.seabattle.players;
 
-
-import com.example.vladimir.seabattle.controllers.ShootCallback;
 import com.example.vladimir.seabattle.logic.models.Board;
 import com.example.vladimir.seabattle.logic.models.Cell;
 import com.example.vladimir.seabattle.logic.models.User;
@@ -43,7 +41,7 @@ public class HPlayer extends Player {
 
     private boolean aimsCalculated = false;
 
-    public HPlayer(final ShootCallback callback, final User user) {
+    public HPlayer(final User user) {
         super(user);
         emptyCells = new Cell[Board.MAX_XY][Board.MAX_XY];
         shootCells = new ArrayList<>();

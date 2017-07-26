@@ -5,9 +5,12 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.example.vladimir.seabattle.enteities.BoardLegend;
@@ -20,30 +23,50 @@ public class DrawView extends View {
 
     private final static int TEXT_SIZE = 50;
 
-    private final static int TEXT_STEP = 71;
+    private static int TEXT_STEP;
 
     private final static int STROKE_WIDTH = 5;
 
-    private final static int COLOR = 6737151;
+    private static int STEP_CELLS;
 
-    private final static int STEP_CELLS = 70;
+    private static int START_TOP_USER_INF;
 
-    private final static int START_TOP_USER_INF = 80;
+    private static int START_USER_BOARD;
 
-    private  final static int START_USER_BOARD = 100;
+    private static int START_POSITION;
 
-    private  final static int START_POSITION = 115;
-
-    private  final static int TOP_POSITION = 150;
+    private static int TOP_POSITION;
 
     private Board board;
 
     private Paint paint;
 
+    private Paint emptyPaint;
+
+    private Paint aliveUserPaint;
+
+    private Paint injuredPaint;
+
+    private Paint missedPaint;
+
+    private Paint killedPaint;
+
+    private Paint textPaint;
+
+    {
+        initEmptyPaint();
+        initAliveUserPaint();
+        initInjuredUserPaint();
+        initMissedUserPaint();
+        initKilledUserPaint();
+        initTextUserPaint();
+    }
+
     public DrawView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(attrs);
     }
+
 
     public DrawView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -61,59 +84,56 @@ public class DrawView extends View {
                 attributeSet,
                 R.styleable.DrawView,
                 0, 0);
-
         this.userVisible = typedArray.getBoolean(R.styleable.DrawView_userVisible, false);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawColor(COLOR);
-        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.BLUE);
-        paint.setStrokeWidth(STROKE_WIDTH);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setTextSize(TEXT_SIZE);
+        START_POSITION = canvas.getWidth()/16;
+        START_USER_BOARD = canvas.getWidth();
+        STEP_CELLS = canvas.getWidth()/10;
+        TEXT_STEP = canvas.getWidth()/12;
+        TOP_POSITION = canvas.getHeight()/6;
+        START_TOP_USER_INF = canvas.getHeight()/10;
+        canvas.drawColor(ContextCompat.getColor(getContext(), R.color.colorBoardBackgraund));
+        paint = textPaint;
         if (board != null) {
             updateUserBoard(canvas);
         }
     }
 
     private void updateUserBoard(Canvas canvas) {
-        Rect commandRect = new Rect(0, STEP_CELLS, STEP_CELLS, 0);
         int startUserBoard = START_USER_BOARD;
         for (int i = Board.MIN_XY; i <= Board.MAX_XY; i++) {
             for (int j = Board.MIN_XY; j <= Board.MAX_XY; j++) {
+                Rect rect = new Rect(new Rect(0, 0, STEP_CELLS, STEP_CELLS));
+                rect.offset(i * STEP_CELLS + startUserBoard, j * STEP_CELLS + startUserBoard);
                 switch (board.getCell(i, j).getState()) {
                     case EMPTY:
-                        paint.setColor(Color.BLUE);
-                        paint.setStyle(Paint.Style.STROKE);
+                        canvas.drawRect(rect, emptyPaint);
                         break;
                     case ALIVE:
-                        paint.setColor(userVisible ? Color.DKGRAY : Color.BLUE);
-                        paint.setStyle(userVisible ? Paint.Style.FILL : Paint.Style.STROKE);
+                        if (userVisible) {
+                            canvas.drawRect(rect, aliveUserPaint);
+                        } else {
+                            canvas.drawRect(rect, emptyPaint);
+                        }
                         break;
                     case MISSED:
-                        paint.setColor(Color.GRAY);
-                        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+                        canvas.drawRect(rect, missedPaint);
                         break;
                     case INJURED:
-                        paint.setColor(Color.CYAN);
-                        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+                        canvas.drawRect(rect, injuredPaint);
                         break;
                     case KILLED:
-                        paint.setColor(Color.RED);
-                        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+                        canvas.drawRect(rect, killedPaint);
                         break;
+                    default:
+                        canvas.drawRect(rect, emptyPaint);
                 }
-
-                Rect rect = new Rect(commandRect);
-                rect.offset(i * STEP_CELLS + startUserBoard, j * STEP_CELLS + startUserBoard);
-                canvas.drawRect(rect, paint);
             }
         }
 
-        paint.setColor(Color.BLUE);
-        paint.setStyle(Paint.Style.STROKE);
         int start = START_POSITION;
         int top = TOP_POSITION;
         for (BoardLegend name : BoardLegend.values()) {
@@ -122,6 +142,54 @@ public class DrawView extends View {
             start += TEXT_STEP;
             top += TEXT_STEP;
         }
+    }
+
+    private void initTextUserPaint() {
+        textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        textPaint.setColor(Color.BLUE);
+        textPaint.setStrokeWidth(STROKE_WIDTH);
+        textPaint.setStyle(Paint.Style.STROKE);
+        textPaint.setTextSize(TEXT_SIZE);
+    }
+
+    private void initKilledUserPaint() {
+        killedPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        killedPaint.setColor(Color.RED);
+        killedPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        killedPaint.setStrokeWidth(STROKE_WIDTH);
+        killedPaint.setTextSize(TEXT_SIZE);
+    }
+
+    private void initMissedUserPaint() {
+        missedPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        missedPaint.setColor(Color.GRAY);
+        missedPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        missedPaint.setStrokeWidth(STROKE_WIDTH);
+        missedPaint.setTextSize(TEXT_SIZE);
+    }
+
+    private void initInjuredUserPaint() {
+        injuredPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        injuredPaint.setColor(Color.CYAN);
+        injuredPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        injuredPaint.setStrokeWidth(STROKE_WIDTH);
+        injuredPaint.setTextSize(TEXT_SIZE);
+    }
+
+    private void initAliveUserPaint() {
+        aliveUserPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        aliveUserPaint.setColor(Color.DKGRAY);
+        aliveUserPaint.setStyle(Paint.Style.FILL);
+        aliveUserPaint.setStrokeWidth(STROKE_WIDTH);
+        aliveUserPaint.setTextSize(TEXT_SIZE);
+    }
+
+    private void initEmptyPaint() {
+        emptyPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        emptyPaint.setColor(Color.BLUE);
+        emptyPaint.setStyle(Paint.Style.STROKE);
+        emptyPaint.setStrokeWidth(STROKE_WIDTH);
+        emptyPaint.setTextSize(TEXT_SIZE);
     }
 
 }

@@ -8,6 +8,8 @@ import com.example.vladimir.seabattle.logic.models.User;
 
 public abstract class Player {
 
+
+
     public final User user;
 
     public final Board board;
