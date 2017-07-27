@@ -6,5 +6,9 @@
     <dimen name="editor_height">60dp</dimen>
     <dimen name="margin_top">10dp</dimen>
     <dimen name="user_name_top_margin">20dp</dimen>
-    <dimen name="list_recycler_view_margin_top">53dp</dimen>
+    <dimen name="list_recycler_view_margin_top">54dp</dimen>
+    <dimen name="half">2</dimen>
+    <dimen name="count_cells">12</dimen>
+    <dimen name="text_size_separator">20</dimen>
+    <dimen name="text_info_step">15</dimen>
 </resources>

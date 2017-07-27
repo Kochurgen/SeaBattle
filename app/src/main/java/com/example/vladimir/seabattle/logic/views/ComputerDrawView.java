@@ -4,9 +4,11 @@ import android.content.Context;
 import android.support.annotation.IntRange;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
+import com.example.vladimir.seabattle.R;
 import com.example.vladimir.seabattle.enteities.BoardLegend;
 
 import static com.example.vladimir.seabattle.logic.models.Board.BOARD_SIZE;
@@ -15,10 +17,9 @@ import static com.example.vladimir.seabattle.logic.models.Board.MIN_XY;
 
 public class ComputerDrawView extends DrawView {
 
-    private static final int START_POSITION = 100;
+    private static int START_POSITION;
 
-    private static final int CELL_STEP = 70;
-
+    private static int CELL_STEP;
     private GestureDetector detector;
 
     private OnCellClick OnCellClick;
@@ -43,6 +44,8 @@ public class ComputerDrawView extends DrawView {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         detector.onTouchEvent(event);
+        START_POSITION = getWidth()/ R.dimen.count_cells;
+        CELL_STEP = getWidth()/R.dimen.count_cells;
         int X = (int) event.getX() - START_POSITION;
         int Y = (int) event.getY() - START_POSITION;
         if ((X < MIN_XY) || (X > CELL_STEP * BoardLegend.values().length) ||
