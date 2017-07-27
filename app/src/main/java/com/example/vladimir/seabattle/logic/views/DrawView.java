@@ -23,19 +23,19 @@ public class DrawView extends View {
 
     private final static int TEXT_SIZE = 50;
 
-    private static int TEXT_STEP;
+    private final static int TEXT_STEP = 71;
 
     private final static int STROKE_WIDTH = 5;
 
-    private static int STEP_CELLS;
+    private final static int STEP_CELLS = 70;
 
-    private static int START_TOP_USER_INF;
+    private final static int START_TOP_USER_INF = 80;
 
-    private static int START_USER_BOARD;
+    private  final static int START_USER_BOARD = 100;
 
-    private static int START_POSITION;
+    private  final static int START_POSITION = 115;
 
-    private static int TOP_POSITION;
+    private  final static int TOP_POSITION = 150;
 
     private Board board;
 
@@ -89,12 +89,6 @@ public class DrawView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        START_POSITION = canvas.getWidth()/16;
-        START_USER_BOARD = canvas.getWidth();
-        STEP_CELLS = canvas.getWidth()/10;
-        TEXT_STEP = canvas.getWidth()/12;
-        TOP_POSITION = canvas.getHeight()/6;
-        START_TOP_USER_INF = canvas.getHeight()/10;
         canvas.drawColor(ContextCompat.getColor(getContext(), R.color.colorBoardBackgraund));
         paint = textPaint;
         if (board != null) {
